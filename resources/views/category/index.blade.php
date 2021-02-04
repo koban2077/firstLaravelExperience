@@ -11,7 +11,7 @@
     @forelse($categories as $category)
     <li>{{ $category->title }} </li>
     @empty
-        <li> No products</li>
+        <li> No categories</li>
     @endforelse
 </ul>
 <script src="script.js"></script>
