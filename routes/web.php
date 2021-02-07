@@ -33,3 +33,13 @@ Route::post('/categories/{category}', ['App\Http\Controllers\CategoryController'
 
 Route::get('/categories/delete/{category}', ['App\Http\Controllers\CategoryController', 'delete'])
     ->name('category_delete');
+
+Route::get('/products', ['App\Http\Controllers\ProductController', 'index'])
+    ->name('products');
+
+Route::post('/products', ['App\Http\Controllers\ProductController', 'store'])
+    ->name('product_store');
+
+Route::get('/products/create', ['App\Http\Controllers\ProductController', 'show'])
+    ->name('product_create');
+
