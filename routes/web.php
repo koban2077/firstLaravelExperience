@@ -40,6 +40,14 @@ Route::get('/products', ['App\Http\Controllers\ProductController', 'index'])
 Route::post('/products', ['App\Http\Controllers\ProductController', 'store'])
     ->name('product_store');
 
-Route::get('/products/create', ['App\Http\Controllers\ProductController', 'show'])
+Route::get('/products/create', ['App\Http\Controllers\ProductController', 'create'])
     ->name('product_create');
 
+Route::get('/products/{product}', ['App\Http\Controllers\ProductController', 'show'])
+    ->name('product_show');
+
+Route::post('/products/{product}', ['App\Http\Controllers\ProductController', 'update'])
+    ->name('product_update');
+
+Route::get('/products/delete/{product}', ['App\Http\Controllers\ProductController', 'delete'])
+    ->name('product_delete');

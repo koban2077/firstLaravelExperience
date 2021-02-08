@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductStoreRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -22,8 +23,35 @@ class ProductController extends Controller
         return redirect()->to('products');
     }
 
-    public function show()
+    public function create()
     {
         return view('product.create');
+    }
+
+    public function show(Product $product)
+    {
+        return view('product.update', compact('product'));
+    }
+
+    public function update(Product $product, ProductStoreRequest $request)
+    {
+        $request->validated();
+        $data = request(['title', 'description', 'price']);
+
+        Product::where('id', $product['id'])
+            ->update([
+                'title' => $data['title'],
+                'description' => $data['description'],
+                'price' => $data['price']
+            ]);
+
+        return redirect()->to('products');
+    }
+
+    public function delete(Product $product)
+    {
+        DB::table('products')->where('id', '=', $product['id'])
+            ->delete();
+        return redirect()->to('products');
     }
 }

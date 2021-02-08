@@ -14,21 +14,29 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6">
-            <h3>Update Form</h3>
-            <form method="POST" action="/categories/{{$category->id}}">
+            <h3>Product Update Form</h3>
+            <form method="POST" action="/products/{{$product->id}}">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Title</label>
-                    <input type="text" class="form-control" name="title" value="{{ $category->title }}">
+                    <input type="text" class="form-control" name="title" value="{{ $product->title }}">
                     @error('title')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Description</label>
-                    <textarea type="text" class="form-control" name="description">{{ $category->description }}
+                    <textarea type="text" class="form-control" name="description">{{ $product->description }}
                     </textarea>
                     @error('description')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Price</label>
+                    <textarea type="number" class="form-control" name="price">{{ $product->price }}
+                    </textarea>
+                    @error('price')
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
