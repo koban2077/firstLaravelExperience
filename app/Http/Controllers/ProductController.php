@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductStoreRequest;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with(['category:id,title'])->get();
         return view('product.index', compact('products'));
     }
 

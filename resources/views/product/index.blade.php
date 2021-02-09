@@ -22,6 +22,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Description</th>
+                <th scope="col">Category</th>
                 <th scope="col">Price</th>
             </tr>
             </thead>
@@ -31,6 +32,7 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $product->title }}</td>
                     <td>{{ $product->description }}</td>
+                    <td>{{ $product->category->title }}</td>
                     <td>{{ $product->price }}</td>
                 </tr>
             @endforeach
