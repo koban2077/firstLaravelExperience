@@ -26,7 +26,7 @@ class CategoryController extends Controller
         $request->validated();
         $data = request(['title', 'description']);
         Category::create($data);
-        return redirect()->to('categories');
+        return redirect()->route('categories');
     }
 
     public function show(Category $category)
@@ -39,18 +39,17 @@ class CategoryController extends Controller
         $request->validated();
         $data = request(['title', 'description']);
 
-        Category::where('id', $category['id'])
-            ->update([
-                'title' => $data['title'],
-                'description' => $data['description']
-            ]);
-        return redirect()->to('categories');
+        $category->title = $data['title'];
+        $category->description = $data['description'];
+
+        $category->save();
+
+        return redirect()->route('categories');
     }
 
     public function delete(Category $category)
     {
-        DB::table('categories')->where('id', '=', $category['id'])
-            ->delete();
-        return redirect()->to('categories');
+        $category->delete();
+        return redirect()->route('categories');
     }
 }
