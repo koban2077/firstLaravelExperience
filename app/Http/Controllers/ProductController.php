@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductStoreRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
@@ -17,40 +18,42 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         $request->validated();
-        $data = request(['title', 'description', 'price']);
+        $data = request(['title', 'category_id', 'description', 'price']);
+
         Product::create($data);
-        return redirect()->to('products');
+        return redirect()->route('products');
     }
 
     public function create()
     {
-        return view('product.create');
+        $categories = Category::all();
+        return view('product.create', compact('categories'));
     }
 
     public function show(Product $product)
     {
-        return view('product.update', compact('product'));
+        $categories = Category::all();
+        return view('product.update', compact('product', 'categories'));
     }
 
     public function update(Product $product, ProductStoreRequest $request)
     {
         $request->validated();
-        $data = request(['title', 'description', 'price']);
+        $data = request(['title', 'category_id', 'description', 'price']);
 
-        Product::where('id', $product['id'])
-            ->update([
-                'title' => $data['title'],
-                'description' => $data['description'],
-                'price' => $data['price']
-            ]);
+        $product->title = $data['title'];
+        $product->description = $data['description'];
+        $product->price = $data['price'];
+        $product->category_id = $data['category_id'];
 
-        return redirect()->to('products');
+        $product->save();
+
+        return redirect()->route('products');
     }
 
     public function delete(Product $product)
     {
-        DB::table('products')->where('id', '=', $product['id'])
-            ->delete();
-        return redirect()->to('products');
+        $product->delete();
+        return redirect()->route('products');
     }
 }

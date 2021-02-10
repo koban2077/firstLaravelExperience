@@ -9,6 +9,7 @@ use Tests\TestCase;
 class ProductTest extends TestCase
 {
     use RefreshDatabase;
+
     public function test_example()
     {
         $response = $this->get('/products');
@@ -26,6 +27,7 @@ class ProductTest extends TestCase
     {
         $product = Product::factory()->raw();
         $this->post('/products', $product);
+
         $this->assertDatabaseHas('products', $product);
         $this->get('/products')
             ->assertSee($product['title']);
@@ -49,15 +51,15 @@ class ProductTest extends TestCase
     {
         $product = Product::factory()->create();
 
-        $newData = [
-            'title' => $product['title'] . ' test',
-            'description' => $product['description'] . ' test',
-            'price' => $product['price']
-            ];
+        $uri = "/products/{$product['id']}";
+        $this->get($uri)
+            ->assertSee('Product Update Form');
 
-        $this->post("/products/{$product['id']}", $newData);
+        $testData = Product::factory()->raw();
 
-        $this->assertDatabaseHas('products', $newData);
+        $this->post($uri, $testData);
+
+        $this->get($uri)->assertSee($testData['title']);
     }
 
     public function testUserCanDeleteProduct()

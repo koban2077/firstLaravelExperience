@@ -31,11 +31,24 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">Category</label>
+                    <select name="category_id" class="form-control">
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->title }}</option>
+                        @endforeach
+                    </select>
+                    @error('category')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
                 <label class="form-label">Price</label>
                     <input type="number" class="form-control" name="price" value="{{ old('price') }}">
                     @error('price')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
+                </div>
                 <button type="submit" class="btn btn-primary">Send</button>
             </form>
         </div>

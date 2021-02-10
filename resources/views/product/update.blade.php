@@ -33,6 +33,17 @@
                     @enderror
                 </div>
                 <div class="mb-3">
+                    <label class="form-label">Category</label>
+                    <select name="category_id" class="form-control">
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->title }}</option>
+                        @endforeach
+                    </select>
+                    @error('category')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
                     <label class="form-label">Price</label>
                     <textarea type="number" class="form-control" name="price">{{ $product->price }}
                     </textarea>
