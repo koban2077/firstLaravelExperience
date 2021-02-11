@@ -48,18 +48,18 @@ class CategoryTest extends TestCase
 
     public function testUserCanSeeUpdateForm()
     {
-        $this->get('/categories/1')
+        $category = Category::factory()->create();
+
+        $this->get("/categories/{$category['id']}")
             ->assertSee('Update Form');
     }
 
     public function testUserCanUpdateCategory()
     {
 
-        $category = Category::factory()->raw();
+        $category = Category::factory()->create();
 
-        $model = Category::create($category);
-
-        $uri = '/categories/' . $model->id;
+        $uri = "/categories/{$category['id']}";
         $this->get($uri)
             ->assertSee('Update Form');
 
@@ -72,11 +72,9 @@ class CategoryTest extends TestCase
 
     public function testUserCanDeleteCategory()
     {
-        $category = Category::factory()->raw();
+        $category = Category::factory()->create();
 
-        $model = Category::create($category);
-
-        $this->get("/categories/delete/$model->id");
+        $this->get("/categories/delete/{$category['id']}");
 
         $this->get('/categories')->assertDontSeeText($category['title']);
     }
