@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Your Page Title</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
+@extends('base')
 
-<div class="container">
+@section('title', 'Categories')
+
+@section('content')
     <div class="row">
         <h1>Categories list</h1>
         <table class="table">
@@ -30,8 +25,4 @@
             </tbody>
         </table>
     </div>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
+@endsection
