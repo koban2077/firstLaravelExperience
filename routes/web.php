@@ -17,55 +17,51 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
-Route::post('/categories', ['App\Http\Controllers\CategoryController', 'store'])
-    ->name('category_store');
+Route::middleware(['auth'])->group( function (){
 
-Route::get('/categories', ['App\Http\Controllers\CategoryController', 'index'])
-    ->middleware(['auth'])
-    ->name('categories');
+    Route::post('/categories', ['App\Http\Controllers\CategoryController', 'store'])
+        ->name('category_store');
 
-Route::get('/categories/create', ['App\Http\Controllers\CategoryController', 'create'])
-    ->middleware(['auth'])
-    ->middleware(['auth']);
+    Route::get('/categories', ['App\Http\Controllers\CategoryController', 'index'])
+        ->name('categories');
 
-Route::get('/categories/{category}', ['App\Http\Controllers\CategoryController', 'show'])
-    ->middleware(['auth'])
-    ->name('category_show');
+    Route::get('/categories/create', ['App\Http\Controllers\CategoryController', 'create'])
+        ->name('category_create');
 
-Route::post('/categories/{category}', ['App\Http\Controllers\CategoryController', 'update'])
-    ->middleware(['auth'])
-    ->name('category_update');
+    Route::get('/categories/{category}', ['App\Http\Controllers\CategoryController', 'show'])
+        ->name('category_show');
 
-Route::get('/categories/delete/{category}', ['App\Http\Controllers\CategoryController', 'delete'])
-    ->middleware(['auth'])
-    ->name('category_delete');
+    Route::post('/categories/{category}', ['App\Http\Controllers\CategoryController', 'update'])
+        ->name('category_update');
 
-Route::get('/products', ['App\Http\Controllers\ProductController', 'index'])
-    ->middleware(['auth'])
-    ->name('products');
+    Route::get('/categories/delete/{category}', ['App\Http\Controllers\CategoryController', 'delete'])
+        ->name('category_delete');
 
-Route::post('/products', ['App\Http\Controllers\ProductController', 'store'])
-    ->middleware(['auth'])
-    ->name('product_store');
+    Route::get('/products', ['App\Http\Controllers\ProductController', 'index'])
+        ->name('products');
 
-Route::get('/products/create', ['App\Http\Controllers\ProductController', 'create'])
-    ->middleware(['auth'])
-    ->name('product_create');
+    Route::post('/products', ['App\Http\Controllers\ProductController', 'store'])
+        ->name('product_store');
 
-Route::get('/products/{product}', ['App\Http\Controllers\ProductController', 'show'])
-    ->middleware(['auth'])
-    ->name('product_show');
+    Route::get('/products/create', ['App\Http\Controllers\ProductController', 'create'])
+        ->name('product_create');
 
-Route::post('/products/{product}', ['App\Http\Controllers\ProductController', 'update'])
-    ->middleware(['auth'])
-    ->name('product_update');
+    Route::get('/products/{product}', ['App\Http\Controllers\ProductController', 'show'])
+        ->name('product_show');
 
-Route::get('/products/delete/{product}', ['App\Http\Controllers\ProductController', 'delete'])
-    ->middleware(['auth'])
-    ->name('product_delete');
+    Route::post('/products/{product}', ['App\Http\Controllers\ProductController', 'update'])
+        ->name('product_update');
+
+    Route::get('/products/delete/{product}', ['App\Http\Controllers\ProductController', 'delete'])
+        ->name('product_delete');
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    });
+});
+
+
+

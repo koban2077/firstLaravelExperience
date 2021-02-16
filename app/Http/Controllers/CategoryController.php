@@ -24,7 +24,7 @@ class CategoryController extends Controller
     public function store(CategoryStoreRequest $request)
     {
         $request->validated();
-        $data = request(['title', 'description']);
+        $data = $request->only(['title', 'description']);
         Category::create($data);
         return redirect()->route('categories');
     }
@@ -37,12 +37,9 @@ class CategoryController extends Controller
     public function update(Category $category, CategoryUpdateRequest $request)
     {
         $request->validated();
-        $data = request(['title', 'description']);
+        $data = $request->only(['title', 'description']);
 
-        $category->title = $data['title'];
-        $category->description = $data['description'];
-
-        $category->save();
+        $category->update($data);
 
         return redirect()->route('categories');
     }

@@ -18,8 +18,7 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         $request->validated();
-        $data = request(['title', 'category_id', 'description', 'price']);
-
+        $data =$request->only(['title', 'category_id', 'description', 'price']);
         Product::create($data);
         return redirect()->route('products');
     }
@@ -39,14 +38,9 @@ class ProductController extends Controller
     public function update(Product $product, ProductStoreRequest $request)
     {
         $request->validated();
-        $data = request(['title', 'category_id', 'description', 'price']);
+        $data = $request->only(['title', 'category_id', 'description', 'price']);
 
-        $product->title = $data['title'];
-        $product->description = $data['description'];
-        $product->price = $data['price'];
-        $product->category_id = $data['category_id'];
-
-        $product->save();
+        $product->update($data);
 
         return redirect()->route('products');
     }
