@@ -1,28 +1,33 @@
 @extends('base')
 
-@section('title', 'Categories')
+@section('title', 'Products List')
 
 @section('content')
-    <div class="row">
-        <h1>Categories list</h1>
+<div class="row">
+        <h1>Products List</h1>
         <table class="table">
             <thead>
+
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Description</th>
+                <th scope="col">Category</th>
+                <th scope="col">Price</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($categories as $category)
+            @foreach($products as $product)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $category->title }}</td>
-                    <td>{{ $category->description }}</td>
-                    <td>{{ $category->price }}</td>
+                    <td>{{ $product->title }}</td>
+                    <td>{{ $product->description }}</td>
+                    <td>{{ $product->category->title }}</td>
+                    <td>{{ $product->price }}</td>
                 </tr>
             @endforeach
             </tbody>
         </table>
     </div>
+
 @endsection
